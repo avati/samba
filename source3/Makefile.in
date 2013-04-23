@@ -915,6 +915,7 @@ VFS_TIME_AUDIT_OBJ = modules/vfs_time_audit.o
 VFS_MEDIA_HARMONY_OBJ = modules/vfs_media_harmony.o
 VFS_BTRFS_OBJ = modules/vfs_btrfs.o
 VFS_CEPH_OBJ = modules/vfs_ceph.o
+VFS_GLUSTERFS_OBJ = modules/vfs_glusterfs.o
 
 PAM_ERRORS_OBJ = ../libcli/auth/pam_errors.o
 PLAINTEXT_AUTH_OBJ = auth/pampass.o auth/pass_check.o $(PAM_ERRORS_OBJ)
@@ -2962,6 +2963,10 @@ bin/btrfs.@SHLIBEXT@: $(BINARY_PREREQS) $(VFS_BTRFS_OBJ)
 bin/ceph.@SHLIBEXT@: $(BINARY_PREREQS) $(VFS_CEPH_OBJ)
 	@echo "Building plugin $@"
 	@$(SHLD_MODULE) $(VFS_CEPH_OBJ)
+
+bin/glusterfs.@SHLIBEXT@: $(BINARY_PREREQS) $(VFS_GLUSTERFS_OBJ)
+	@echo "Building plugin $@"
+	$(SHLD_MODULE) $(VFS_GLUSTERFS_OBJ)
 
 #########################################################
 ## IdMap NSS plugins

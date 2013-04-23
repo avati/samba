@@ -1051,6 +1051,16 @@ CFLAGS="$save_CFLAGS"
 LDFLAGS="$save_LDFLAGS"
 LIBS="$save_LIBS"
 
+
+###################
+PKG_CHECK_MODULES([GLFS], [glusterfs-api >= 4], glfs_found=yes, glfs_found=no)
+if test "x$glfs_found" = "xyes"; then
+    CFLAGS="$CFLAGS $GLFS_CFLAGS"
+    LDFLAGS="$LDFLAGS $GLFS_LDFLAGS"
+    LIBS="$LIBS $GLFS_LIBS"
+    default_shared_modules="$default_shared_modules vfs_glusterfs"
+fi
+
 # Note that all the libunwind symbols in the API are defined to internal
 # platform-specific version, so we must include libunwind.h before checking
 # any of them.
@@ -6485,6 +6495,7 @@ SMB_MODULE(vfs_time_audit, \$(VFS_TIME_AUDIT_OBJ), "bin/time_audit.$SHLIBEXT", V
 SMB_MODULE(vfs_media_harmony, \$(VFS_MEDIA_HARMONY_OBJ), "bin/media_harmony.$SHLIBEXT", VFS)
 SMB_MODULE(vfs_btrfs, \$(VFS_BTRFS_OBJ), "bin/btrfs.$SHLIBEXT", VFS)
 SMB_MODULE(vfs_ceph, \$(VFS_CEPH_OBJ), "bin/ceph.$SHLIBEXT", VFS)
+SMB_MODULE(vfs_glusterfs, \$(VFS_GLUSTERFS_OBJ), "bin/glusterfs.$SHLIBEXT", VFS)
 
 SMB_SUBSYSTEM(VFS,smbd/vfs.o)
 

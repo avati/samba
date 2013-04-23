@@ -1727,6 +1727,9 @@ main() {
             Logs.info("ncurses not available, not building regedit")
 
 
+    if conf.CHECK_HEADERS('api/glfs.h'):
+        conf.DEFINE('HAVE_GLUSTERFS', '1')
+
     default_static_modules.extend(TO_LIST('''pdb_smbpasswd pdb_tdbsam pdb_wbc_sam
                                       auth_sam auth_unix auth_winbind auth_wbc
                                       auth_domain auth_builtin vfs_default
@@ -1796,6 +1799,9 @@ main() {
 
     if conf.CONFIG_SET("HAVE_CEPH"):
         default_shared_modules.extend(TO_LIST('vfs_ceph'))
+
+    if conf.CONFIG_SET('HAVE_GLUSTERFS'):
+        default_shared_modules.extend(TO_LIST('vfs_glusterfs'))
 
     explicit_shared_modules = TO_LIST(Options.options.shared_modules, delimiter=',')
     explicit_static_modules = TO_LIST(Options.options.static_modules, delimiter=',')
