@@ -26,10 +26,7 @@
 
 static bool smb_ace_to_internal(acl_entry_t posix_ace,
 				struct smb_acl_entry *ace);
-static struct smb_acl_t *smb_acl_to_internal(acl_t acl, TALLOC_CTX *mem_ctx);
 static int smb_acl_set_mode(acl_entry_t entry, SMB_ACL_PERM_T perm);
-static acl_t smb_acl_to_posix(const struct smb_acl_t *acl);
-
 
 /* public functions - the api */
 
@@ -213,7 +210,7 @@ static bool smb_ace_to_internal(acl_entry_t posix_ace,
 	return True;
 }
 
-static struct smb_acl_t *smb_acl_to_internal(acl_t acl, TALLOC_CTX *mem_ctx)
+struct smb_acl_t *smb_acl_to_internal(acl_t acl, TALLOC_CTX *mem_ctx)
 {
 	struct smb_acl_t *result = sys_acl_init(mem_ctx);
 	int entry_id = ACL_FIRST_ENTRY;
@@ -270,7 +267,7 @@ static int smb_acl_set_mode(acl_entry_t entry, SMB_ACL_PERM_T perm)
         return acl_set_permset(entry, permset);
 }
 
-static acl_t smb_acl_to_posix(const struct smb_acl_t *acl)
+acl_t smb_acl_to_posix(const struct smb_acl_t *acl)
 {
 	acl_t result;
 	int i;

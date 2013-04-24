@@ -44,5 +44,8 @@ int posixacl_sys_acl_delete_def_file(vfs_handle_struct *handle,
 
 NTSTATUS vfs_posixacl_init(void);
 
+struct smb_acl_t *smb_acl_to_internal(acl_t acl, TALLOC_CTX *mem_ctx);
+acl_t smb_acl_to_posix(const struct smb_acl_t *acl);
+
 #endif
 
