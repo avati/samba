@@ -21,6 +21,8 @@
 #ifndef __VFS_POSIXACL_H__
 #define __VFS_POSIXACL_H__
 
+#include <sys/acl.h>
+
 SMB_ACL_T posixacl_sys_acl_get_file(vfs_handle_struct *handle,
 				    const char *path_p,
 				    SMB_ACL_TYPE_T type);
